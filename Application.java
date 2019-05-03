@@ -53,7 +53,7 @@ public class Application {
 
 		public static void runSuccessfulRegistrationDuplicateID(String username) throws IOException {
 			System.out.print("Please enter the ID number of your device: ");
-			Integer ID = input.nextInt();
+			int ID = input.nextInt();
 			if(tableID.containsValue(ID)) {
 				runFailedRegistrationDuplicateID(username);
 			}else {
@@ -96,6 +96,18 @@ public class Application {
 				runFailedResponse(response);
 			}
 		}
+		
+		public static void runFailedReportName() throws IOException{
+			System.out.println("It seems your username is not in use, please enter a valid username: ");
+			String username = input.nextLine();
+			if(tableID.containsKey(username)) {
+				runFailedReportName();
+			}else {
+				runSuccessfulReport(username);
+			}
+			
+		}
+		
 		
 		public static void runFailedRegistrationDuplicateName() throws IOException {
 			System.out.println("It seems your username is taken, please select a new one: ");
@@ -202,7 +214,7 @@ public class Application {
 						accountName = accountName + "" + str.charAt(i);
 					}
 				}
-				for(int i = str.indexOf('=')+1; i < str.length()-1; i++) {
+				for(int i = str.indexOf('=')+1;i < str.length()-1; i++) {
 					if(str.charAt(i) != '}') {
 						location = location + "" + str.charAt(i);
 					}else {
@@ -215,4 +227,107 @@ public class Application {
 			output.close();
 			currLine.close();
 		}
+}
+
+{
+   public static void main(String[] args)
+   {
+      int dieSides = 6;
+	   int trash = 0, boot = 1, smallFish = 3, mediumFish = 4, largeFish = 6, rareFish = 10; //each assigned points
+	   int point1 = 0, point2 = 0, point3 = 0, point4 = 0, point5 = 0, point6 = 0;	
+	   double total = 0;
+      int rolls;
+      char choice;
+	   String fishs;
+      int round;
+
+      Scanner input = new Scanner(System.in);
+      //die public class
+      Die die = new Die(dieSides);
+      
+	   System.out.println("Welcome to the Fishing Game Simulator");
+      
+
+	//loop for the each side of the Die
+	   do
+	   {
+		   die.roll();
+         rolls = die.getValue();
+
+		   if (rolls == 1)
+		   {
+			    fishs = "Trash";
+			   total += trash;	//adds the points of each type of fish
+			   round = trash;
+			   point1++;	//increment of the points
+            System.out.println("You have caugh a:"  + fishs);
+
+		   }
+		   else if (rolls == 2)
+		   {
+		   	 fishs = "Boot";
+		   	total += boot;
+		   	round = boot;
+		   	point2++;
+            System.out.println("You have caugh a:"  + fishs);
+
+		   }
+		   else if (rolls == 3)
+		   {
+		   	fishs = "Small Fish";
+		   	total += smallFish;
+		   	round = smallFish;
+		   	point3++;
+            System.out.println("You have caugh a:"  + fishs);
+
+		   }
+		  else  if (rolls == 4)
+		   {
+		   	 fishs = "Medium Fish";
+		   	total += mediumFish;
+		   	round = mediumFish;
+		   	point4++;
+            System.out.println("You have caugh a:"  + fishs);
+
+		   }
+		   else if (rolls == 5)
+		   {
+		   	 fishs = "Large Fish";
+	      	total += largeFish;
+   			round = largeFish;
+   			point5++;
+            System.out.println("You have caugh a:"  + fishs);
+
+   		}
+   		else if (rolls == 6)
+   		{
+   			 fishs = "Rare Fish";
+   			total += rareFish;   
+     			round = rareFish;
+   			point6++;
+            System.out.println("You have caugh a:"  + fishs);
+
+   	   }
+                     
+         choice = JOptionPane.showInputDialog("Do you wish to continue Yes(y) or No(n): ").toUpperCase().charAt(0);
+                  
+       }//IF user wants to stop playing the total points will be displayed
+        while (choice != 'n'&& choice != 'N');
+         {
+            if (choice == 'n' || choice == 'N')
+		      {
+               System.out.println("\n");
+               System.out.println("THE FINAL RESULT OF THE GAME!");
+               System.out.println("Your final total score is: " + total);
+            }
+            if (total <= 25)
+            {
+               System.out.println("You failed to get enough points. Better luck next time!!!");
+            }
+            if (total >= 25)
+            {
+               System.out.println("Good Job. You did well fisherman!");
+            }
+         }
+      }
 }
